@@ -20,22 +20,22 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe 'post update' do
-    it "can update your own notes" do
-      alice, beth = users(:alice), users(:beth)
-      session[:user_id] = beth.id
+  # describe 'post update' do
+  #   it "can update your own notes" do
+  #     alice, beth = users(:alice), users(:beth)
+  #     session[:user_id] = beth.id
       
-      content = 'oh so secret'
-      post :create, note: {content: content, visible_to: ''}
-      note_id = Note.last.id
-      assert Note.find(note_id).content == content
+  #     content = 'oh so secret'
+  #     post :create, note: {content: content, visible_to: ''}
+  #     note_id = Note.last.id
+  #     assert Note.find(note_id).content == content
 
-      new_content = 'a different secret'
-      post :update, id: note_id, note: {content: new_content, visible_to: 'alice'}
-      assert_redirected_to '/'
-      note = Note.find(note_id)
-      assert note.content == new_content
-      assert note.readers == [alice, beth]
-    end
-  end
+  #     new_content = 'a different secret'
+  #     post :update, id: note_id, note: {content: new_content, visible_to: 'alice'}
+  #     assert_redirected_to '/'
+  #     note = Note.find(note_id)
+  #     assert note.content == new_content
+  #     assert note.readers == [alice, beth]
+  #   end
+  # end
 end
